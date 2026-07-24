@@ -1,5 +1,5 @@
-const searchInput = document.querySelector(".search__input")
-const searchBtn = document.querySelector(".search__btn")
+const searchInput = document.querySelector(".search__input--index")
+const searchBtn = document.querySelector(".search__btn--index")
 
 searchBtn.addEventListener("click", () => {
     const search = searchInput.value

@@ -7,7 +7,7 @@ const params = new URLSearchParams(window.location.search)
 const search = params.get("search")
 
 const resultListElm = document.querySelector(".results")
-const loadingSpinner = document.querySelector(".results");
+const loadingSpinner = document.querySelector(".results")
 
 let movies = []
 
@@ -82,7 +82,7 @@ function filterMovies(searchTerm) {
 
 function sortMovies(event) {
     showLoading()
-    
+
     if (event.target.value === 'OLD_TO_NEW') {
         movies.sort((a, b) => a.Year - b.Year)
     }
@@ -97,6 +97,7 @@ function sortMovies(event) {
     }
     displayMovies(movies)
 }
+
 
 
 
