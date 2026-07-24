@@ -223,15 +223,14 @@ main {
     border-radius: 6px;
     cursor: pointer;
 }
-
-.result {
+.results{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 12px;
 }
 
-.result__container {
+.result {
     margin-bottom: 32px;
 }
 
@@ -244,6 +243,31 @@ main {
     padding: 8px 0;
     width: 300px;
 }
+
+.movies__loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 80px 0;
+}
+
+.fa-spinner {
+    font-size: 65px;
+    color: #6f8f39;
+    animation: rotate 800ms infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    } 
+}
+
+
 
 
 

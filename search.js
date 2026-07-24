@@ -6,13 +6,16 @@ const searchBtn = document.querySelector(".search__btn")
 const params = new URLSearchParams(window.location.search)
 const search = params.get("search")
 
-const resultListElm = document.querySelector(".result")
+const resultListElm = document.querySelector(".results")
+const loadingSpinner = document.querySelector(".results");
 
 let movies = []
 
 // API ARRAY FETCH - DOWNLOAD THE DATA
 
 async function fetchMovies() {
+    showLoading()
+    
     const response = await fetch("https://www.omdbapi.com/?i=tt3896198&apikey=1114bf7d&s=zombie")
     const movieData = await response.json()
     movies = movieData.Search
@@ -21,9 +24,9 @@ async function fetchMovies() {
         searchInput.value = search
         filterMovies(search)
     }
-    else {displayMovies(movies)}
-
-    // console.log(movies) 
+    else {
+        displayMovies(movies)
+    }
 }
 
 fetchMovies()
@@ -32,20 +35,29 @@ fetchMovies()
 
 function renderMovie(movie) {
     return `<div class="result">
-                <div class="result__container">
-                    <img src="${movie.Poster}" alt="Poster" class="poster__img">
-                    <p class="movie__title">${movie.Title}</p>
-                    <p class="movie__date">${movie.Year}</p>
-                </div>
+                <img src="${movie.Poster}" alt="Poster" class="poster__img">
+                <p class="movie__title">${movie.Title}</p>
+                <p class="movie__date">${movie.Year}</p>
             </div>`
+}
+
+// LOADING STATE
+
+function showLoading() {
+    loadingSpinner.innerHTML = `
+        <div class="movies__loading">
+            <i class="fa-solid fa-spinner"></i>
+        </div>`
 }
 
 // DISPLAY ARRAY
 
 function displayMovies(movieArray) {
-    resultListElm.innerHTML = movieArray
-    .map(movie => renderMovie(movie))
-    .join('')
+    setTimeout(() => {
+        resultListElm.innerHTML = movieArray
+        .map(movie => renderMovie(movie))
+        .join('')
+    }, 2000)
 }
 
 // SEARCH BAR
@@ -54,10 +66,11 @@ searchBtn.addEventListener("click", () => {
     const search = searchInput.value
 
     filterMovies(search)
-    console.log(search)
 })
 
 function filterMovies(searchTerm) {
+    showLoading()
+
     const filteredMovies = movies.filter((movie) => {
         return (movie.Title.toLowerCase().includes(searchTerm.toLowerCase())) || (movie.Year.includes(searchTerm))
     })
@@ -68,6 +81,8 @@ function filterMovies(searchTerm) {
 // SORT MOVIES
 
 function sortMovies(event) {
+    showLoading()
+    
     if (event.target.value === 'OLD_TO_NEW') {
         movies.sort((a, b) => a.Year - b.Year)
     }
@@ -82,6 +97,8 @@ function sortMovies(event) {
     }
     displayMovies(movies)
 }
+
+
 
 
 
